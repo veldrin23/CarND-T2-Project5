@@ -133,8 +133,8 @@ int main() {
           double psi_delay = psi0 - ( v * delta * delay / mpc.Lf );
           double v_delay = v + a * delay;
           double cte_delay = cte0 + ( v * sin(epsi0) * delay );
-          double epsi_delay = epsi0 - ( v * atan(coeffs[1]) * delay / mpc.Lf );
-
+          // double epsi_delay = epsi0 - ( v * atan(coeffs[1]) * delay / mpc.Lf );
+          double epsi_delay = epsi0 - v*delta*delay/mpc.Lf;
           
           // state vector
           Eigen::VectorXd state(6);
