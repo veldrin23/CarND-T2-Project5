@@ -44,3 +44,8 @@ A third degree polynomial is fitted to the transformed waypoints. The polynomial
 ## Model Predictive Control with Latency
 To account for latecny, the state values are calculated with a delayed interval.  
 
+## End result:
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/XA0P2HRMmi0/0.jpg)](http://www.youtube.com/watch?v=XA0P2HRMmi0 "CarND-T2-Project5")
+
+
