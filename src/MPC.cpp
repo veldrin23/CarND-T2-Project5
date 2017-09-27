@@ -6,10 +6,10 @@
 using CppAD::AD;
 
 // TODO: Set the timestep length and duration
-double reference_scaling_value = 1000;
+double reference_scaling_value = 500;
 double actuators_scaling_value = 50;
 
-size_t N = 7; //
+size_t N = 10; //
 double dt = .1f; //.15 did not work, vehicle touched the curb and were too sporadic 
 
 
@@ -46,8 +46,8 @@ class FG_eval {
 
     // Reference state.
     for (int t = 0; t < N; t++) {
-      fg[0] += reference_scaling_value*CppAD::pow(vars[cte_start + t], 2);
-      fg[0] += reference_scaling_value*CppAD::pow(vars[epsi_start + t], 2);
+      fg[0] += reference_scaling_value*CppAD::pow(vars[cte_start + t] - ref_cte, 2);
+      fg[0] += reference_scaling_value*CppAD::pow(vars[epsi_start + t] - ref_epsi, 2);
       fg[0] += CppAD::pow(vars[v_start + t] - ref_v, 2);
     }
 
@@ -59,7 +59,7 @@ class FG_eval {
 
     // Sequential actuations.
     for (int t = 0; t < N - 2; t++) {
-      fg[0] += 100000*CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
+      fg[0] += 300000*CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
       fg[0] += 5000*CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
 
     }
