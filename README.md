@@ -33,10 +33,10 @@ Using these state values, the model aims to predict the appropiate acceleration 
 * The square sum of the difference actuators (line 55-58 in MPC.cpp)
 * The square sum of the sequential actuators (line 61-65 in MPC.cpp)
 
-The first error term is to penalize deviation from ground truth, while the last two is to penalize the actuators' behaviour (drastic sequential - and extreme values). I used scaling factors for these errors terms to smooth out the vehicle's behaviour to adjust for the error function.
+The first error term is to penalize deviation from ground truth, while the last two is to penalize the actuators' behaviour (drastic sequential - and extreme values). I used scaling factors for these errors terms to smooth out the vehicle's behaviour to adjust for the error function. For my second submission I increased the scaling factors for both the cte/epsi and the sequential actuators. The vehicle deviated from the ground truth too easily and reacted too harshly to get back on track. This helped to keep a tightger leash on the vehicle, while allowing it to come back to ground truth with more grace.
 
 ## Timestep Length and Elapsed Duration
-After playing around with a few values, I found that 7 timesteps with a elapse duration of 100ms keeps the vehicle nicely on track. I also tried using higher elapse duration values (.2, .15), but the vehicle reacted too slowly to keep a smooth ride. Higher values for the timestamp (9, 11) didn't have a huge impact on the vehicle's behaviour. 
+I finally settled for 10 timestamps with 100ms elapse duration. Initally I chose 7 timestamps, but this decreased the time horizon which in turn slowed down the vehicle. Lowering elapse duration increases the computational time required too much, and 100ms is good enough for the vehicle to make adjustments quick enough to ensure a smooth ride
 
 ## Polynomial Fitting and MPC Preprocessing
 A third degree polynomial is fitted to the transformed waypoints. The polynomial sometimes 'flips' around the ground truth on straight parts of the road, but this has no negative impact on the vehicle's behaviour (thanks to the square sum of the sequential actuators error term). The coefficients are also used to calculated the cross track - and orientation errors.
@@ -46,6 +46,6 @@ To account for latecny, the state values are calculated with a delayed interval.
 
 ## End result:
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/XA0P2HRMmi0/0.jpg)](http://www.youtube.com/watch?v=XA0P2HRMmi0 "CarND-T2-Project5")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/eb3MjqjAReY/1.jpg)](http://www.youtube.com/watch?v=eb3MjqjAReY "CarND-T2-Project5")
 
 
